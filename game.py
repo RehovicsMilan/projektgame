@@ -1,9 +1,9 @@
 import pygame
+from pygame.locals import *
 
 pygame.init()
 
 screen = pygame.display.set_mode((800,600))
-pygame.display.set_caption("Első játékom")
 
 BLACK = (0, 0, 0)
 GRAY = (127, 127, 127)
@@ -16,18 +16,23 @@ CYAN = (0, 255, 255)
 MAGENTA = (255, 0, 255)
 
 background = GRAY
+key_dict = {K_k:BLACK, K_r:RED, K_g:GREEN, K_b:BLUE,
+    K_y:YELLOW, K_c:CYAN, K_m:MAGENTA, K_w:WHITE}
+
 
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_r:
-                background = RED
-            elif event.key == pygame.K_g:
-                background = GREEN
-        print(event)
+        if event.type == KEYDOWN:
+            if event.key in key_dict:
+                background = key_dict[event.key]
+            caption = "background color = " + str(background)
+            pygame.display.set_caption(caption)
+
+
+
 
         screen.fill(background)
         pygame.display.update()
